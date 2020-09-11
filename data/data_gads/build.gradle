@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion versions.compiled_sdk
+    buildToolsVersion versions.build_tools
+
+    defaultConfig {
+        minSdkVersion versions.min_sdk
+        targetSdkVersion versions.target_sdk
+        versionCode versions.app_version_code
+        versionName versions.app_version_name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // gson
+    implementation deps.gson
+    // okhttp & logging
+    implementation deps.logging_interceptor
+    implementation deps.okhttp
+    // retrofit
+    implementation deps.retrofit
+    implementation deps.retrofit_gson
+    // Room DB
+    implementation deps.room_db
+    annotationProcessor deps.room_db_compiler
+
+
+    // Room test
+    testImplementation deps.room_test_helpers
+    // junit5
+    testImplementation deps.junit5_runner
+    testImplementation deps.junit5_api
+    testImplementation deps.junit5_params
+    testRuntimeOnly deps.junit5_engine
+    testRuntimeOnly deps.junit5_vintage
+    // Mockito
+    testImplementation deps.mockito
+    // Robolectric
+    testImplementation deps.robolectric
+    testImplementation deps.core_robolectric
+    // truth
+    testImplementation deps.truth
+    // hamcrest
+    testImplementation deps.hamcrest_lib
+    testImplementation deps.hamcrest
+
+}
